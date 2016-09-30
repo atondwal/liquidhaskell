@@ -102,6 +102,7 @@ expandExpr = go
     go (PGrad k su i e)  = PGrad k su i <$> go e 
     go e@(ESym _)      = return e
     go e@(ECon _)      = return e
+    go (Interp e)      = Interp <$> expandExpr e
 
 expandSym :: Symbol -> BareM Expr
 expandSym s = do

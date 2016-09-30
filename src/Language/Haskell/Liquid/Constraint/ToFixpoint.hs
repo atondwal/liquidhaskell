@@ -39,6 +39,7 @@ fixConfig :: FilePath -> Config -> FC.Config
 fixConfig tgt cfg = def
   { FC.solver           = fromJust (smtsolver cfg)
   , FC.linear           = linear            cfg
+  , FC.interpolate      = False
   , FC.eliminate        = eliminate         cfg
   , FC.nonLinCuts       = not (higherOrderFlag cfg) -- eliminate cfg /= FC.All
   , FC.save             = saveQuery         cfg

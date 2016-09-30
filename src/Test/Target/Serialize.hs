@@ -111,6 +111,7 @@ mkNe  e1 e2             = build "(not (= {} {}))" (smt2 e1, smt2 e2)
 instance SMTLIB2 Command where
   smt2 (Declare x ts t)    = build "(declare-fun {} ({}) {})"     (smt2 x, smt2s ts, smt2 t)
   smt2 (Define t)          = build "(declare-sort {})"            (Only $ smt2 t)
+  smt2 (Interpolate _ p)   = build "(interp {})"                  (Only $ smt2 p)
   smt2 (Assert Nothing p)  = build "(assert {})"                  (Only $ smt2 p)
   smt2 (Assert (Just i) p) = build "(assert (! {} :named p-{}))"  (smt2 p, i)
   smt2 (AssertAxiom t)     = build "(assert {})"                  (Only $ smt2 t)

@@ -161,6 +161,7 @@ buildExprEdges table  = ordNub . go
   where
     go :: Expr -> [Symbol]
     go (EApp e1 e2)   = go e1 ++ go e2
+    go (Interp e)       = go e
     go (ENeg e)       = go e
     go (EBin _ e1 e2) = go e1 ++ go e2
     go (EIte _ e1 e2) = go e1 ++ go e2
