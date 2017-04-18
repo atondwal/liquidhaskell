@@ -25,10 +25,10 @@ import Data.Maybe (fromJust)
 -- AT: Move to own module?
 -- imports for AxiomEnv
 import           Language.Haskell.Liquid.UX.Config (allowLiquidInstationationGlobal, allowLiquidInstationationLocal, allowRewrite, allowArithmetic)
-import           Language.Haskell.Liquid.GHC.Misc              (dropModuleNames, simplesymbol)
-import qualified Data.List                                     as L
-import qualified Data.HashMap.Strict                           as M
-import           Data.Maybe                                    (fromMaybe)
+import           Language.Haskell.Liquid.GHC.Misc  (dropModuleNames, simplesymbol)
+import qualified Data.List                         as L
+import qualified Data.HashMap.Strict               as M
+import           Data.Maybe                        (fromMaybe)
 import           Language.Fixpoint.Misc
 import           Var
 
