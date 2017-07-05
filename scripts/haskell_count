@@ -70,7 +70,7 @@ sub determine_lit_type {
 
   open (FILE, $file);
   while (<FILE>) {
-    if (m/^\\begin{code}/) { close FILE; return 2; }
+    if (m/^\\begin\{code\}/) { close FILE; return 2; }
     if (m/^>\s/) { close FILE; return 1; }
   }
 
@@ -92,9 +92,9 @@ sub count_file {
       if (!s/^>//) { s/.*//; }
     } elsif ($literate == 2) {
       if ($inlitblock) {
-        if (m/^\\end{code}/) { s/.*//; $inlitblock = 0; }
+        if (m/^\\end\{code\}/) { s/.*//; $inlitblock = 0; }
       } elsif (!$inlitblock) {
-        if (m/^\\begin{code}/) { s/.*//; $inlitblock = 1; }
+        if (m/^\\begin\{code\}/) { s/.*//; $inlitblock = 1; }
         else { s/.*//; }
       }
     }

@@ -9,69 +9,77 @@ import subprocess
 import sys
 
 benchmarks = {
-    'benchmarks/text-0.11.2.3': [ 'Data/Text.hs'
-                                , 'Data/Text/Array.hs'
-                                , 'Data/Text/Encoding.hs'
-                                , 'Data/Text/Foreign.hs'
-                                , 'Data/Text/Fusion.hs'
-                                , 'Data/Text/Fusion/Size.hs'
-                                , 'Data/Text/Internal.hs'
-                                , 'Data/Text/Lazy.hs'
-                                , 'Data/Text/Lazy/Builder.hs'
-                                , 'Data/Text/Lazy/Encoding.hs'
-                                , 'Data/Text/Lazy/Fusion.hs'
-                                , 'Data/Text/Lazy/Internal.hs'
-                                , 'Data/Text/Lazy/Search.hs'
-                                , 'Data/Text/Private.hs'
-                                , 'Data/Text/Search.hs'
-                                , 'Data/Text/Unsafe.hs'
-                                , 'Data/Text/UnsafeChar.hs' ],
+    'benchmarks/pldi17/pos': [ 'Ackermann.hs'
+                             , 'AlphaEquivalence.hs'
+                             , 'Append.hs'
+                             , 'ApplicativeId.hs'
+                             , 'ApplicativeList.hs'
+                             , 'ApplicativeMaybe.hs'
+                             , 'BasicLambdas.hs'
+                             , 'Compose.hs'
+                             , 'Euclide.hs'
+                             , 'FoldrUniversal.hs'
+                             , 'FunctionEquality101.hs'
+                             , 'FunctorId.hs'
+                             , 'FunctorList.hs'
+                             , 'FunctorMaybe.hs'
+                             , 'MapFusion.hs'
+                             , 'MonadList.hs'
+                             , 'MonoidList.hs'
+                             , 'MonoidMaybe.hs'
+                             , 'NormalForm.hs'
+                             , 'Overview.hs'
+                             , 'Peano.hs'
+                             , 'ProofCombinators.hs'
+                             , 'Solver.hs'
+                             , 'Unification.hs'
+                             ]
 
-    'benchmarks/bytestring-0.9.2.1': [ 'Data/ByteString.T.hs'
-                                     , 'Data/ByteString/Char8.hs'
-                                     , 'Data/ByteString/Fusion.T.hs'
-                                     , 'Data/ByteString/Internal.hs'
-                                     , 'Data/ByteString/Lazy.hs'
-                                     # , 'Data/ByteString/LazyZip.hs'
-                                     , 'Data/ByteString/Lazy/Char8.hs'
-                                     , 'Data/ByteString/Lazy/Internal.hs'
-                                     , 'Data/ByteString/Unsafe.hs' ],
+    #'benchmarks/bytestring-0.9.2.1': [ 'Data/ByteString.T.hs'
+    #                                 , 'Data/ByteString/Char8.hs'
+    #                                 , 'Data/ByteString/Fusion.T.hs'
+    #                                 , 'Data/ByteString/Internal.hs'
+    #                                 , 'Data/ByteString/Lazy.hs'
+    #                                 # , 'Data/ByteString/LazyZip.hs'
+    #                                 , 'Data/ByteString/Lazy/Char8.hs'
+    #                                 , 'Data/ByteString/Lazy/Internal.hs'
+    #                                 , 'Data/ByteString/Unsafe.hs' ],
 
-    'benchmarks/vector-algorithms-0.5.4.2': [ 'Data/Vector/Algorithms/AmericanFlag.hs'
-                                            , 'Data/Vector/Algorithms/Combinators.hs'
-                                            , 'Data/Vector/Algorithms/Common.hs'
-                                            , 'Data/Vector/Algorithms/Heap.hs'
-                                            , 'Data/Vector/Algorithms/Insertion.hs'
-                                            , 'Data/Vector/Algorithms/Intro.hs'
-                                            , 'Data/Vector/Algorithms/Merge.hs'
-                                            , 'Data/Vector/Algorithms/Optimal.hs'
-                                            , 'Data/Vector/Algorithms/Radix.hs'
-                                            , 'Data/Vector/Algorithms/Search.hs' ],
+    #'benchmarks/vector-algorithms-0.5.4.2': [ 'Data/Vector/Algorithms/AmericanFlag.hs'
+    #                                        , 'Data/Vector/Algorithms/Combinators.hs'
+    #                                        , 'Data/Vector/Algorithms/Common.hs'
+    #                                        , 'Data/Vector/Algorithms/Heap.hs'
+    #                                        , 'Data/Vector/Algorithms/Insertion.hs'
+    #                                        , 'Data/Vector/Algorithms/Intro.hs'
+    #                                        , 'Data/Vector/Algorithms/Merge.hs'
+    #                                        , 'Data/Vector/Algorithms/Optimal.hs'
+    #                                        , 'Data/Vector/Algorithms/Radix.hs'
+    #                                        , 'Data/Vector/Algorithms/Search.hs' ],
 
-    'benchmarks/esop2013-submission': [ 'Base.hs', 'Splay.hs' ],
+    #'benchmarks/esop2013-submission': [ 'Base.hs', 'Splay.hs' ],
 
-    'benchmarks/hscolour-1.20.0.0': [ 'Language/Haskell/HsColour.hs'
-                                    , 'Language/Haskell/HsColour/ACSS.hs'
-                                    , 'Language/Haskell/HsColour/Anchors.hs'
-                                    , 'Language/Haskell/HsColour/ANSI.hs'
-                                    , 'Language/Haskell/HsColour/Classify.hs'
-                                    , 'Language/Haskell/HsColour/ColourHighlight.hs'
-                                    , 'Language/Haskell/HsColour/Colourise.hs'
-                                    , 'Language/Haskell/HsColour/CSS.hs'
-                                    , 'Language/Haskell/HsColour/General.hs'
-                                    , 'Language/Haskell/HsColour/HTML.hs'
-                                    , 'Language/Haskell/HsColour/InlineCSS.hs'
-                                    , 'Language/Haskell/HsColour/LaTeX.hs'
-                                    , 'Language/Haskell/HsColour/MIRC.hs'
-                                    , 'Language/Haskell/HsColour/Options.hs'
-                                    , 'Language/Haskell/HsColour/Output.hs'
-                                    , 'Language/Haskell/HsColour/TTY.hs' ],
+    #'benchmarks/hscolour-1.20.0.0': [ 'Language/Haskell/HsColour.hs'
+    #                                , 'Language/Haskell/HsColour/ACSS.hs'
+    #                                , 'Language/Haskell/HsColour/Anchors.hs'
+    #                                , 'Language/Haskell/HsColour/ANSI.hs'
+    #                                , 'Language/Haskell/HsColour/Classify.hs'
+    #                                , 'Language/Haskell/HsColour/ColourHighlight.hs'
+    #                                , 'Language/Haskell/HsColour/Colourise.hs'
+    #                                , 'Language/Haskell/HsColour/CSS.hs'
+    #                                , 'Language/Haskell/HsColour/General.hs'
+    #                                , 'Language/Haskell/HsColour/HTML.hs'
+    #                                , 'Language/Haskell/HsColour/InlineCSS.hs'
+    #                                , 'Language/Haskell/HsColour/LaTeX.hs'
+    #                                , 'Language/Haskell/HsColour/MIRC.hs'
+    #                                , 'Language/Haskell/HsColour/Options.hs'
+    #                                , 'Language/Haskell/HsColour/Output.hs'
+    #                                , 'Language/Haskell/HsColour/TTY.hs' ],
 
-    'benchmarks/xmonad': [ 'XMonad/StackSet.hs' ],
+    #'benchmarks/xmonad': [ 'XMonad/StackSet.hs' ],
 
-    'include': [ 'GHC/List.lhs' ],
+    #'include': [ 'GHC/List.lhs' ],
 
-    '.': [ 'benchmarks/base-4.5.1.0/Data/List.hs' ]
+    #'.': [ 'benchmarks/base-4.5.1.0/Data/List.hs' ]
 }
 
 def time(fn):
@@ -140,11 +148,12 @@ def main():
         pptex = texify
     results = {}
     pwd = os.getcwd()
+    print '\\begin{tabular}{%s}\n' % colformat,
+    print ' & '.join('\\textbf{%s}' % h for h in headers) + '\\\\\n',
     for d, fs in benchmarks.iteritems():
         os.chdir(d)
         results[d] = {}
         for fn in fs:
-            print fn
             f_res = {}
             f_res['time'] = time(fn)
             f_res['sloc'] = sloc(os.path.join(pwd,'scripts'),fn)
@@ -153,10 +162,10 @@ def main():
             f_res['recs'] = rs
             f_res['recfuns'] = rfs
 
-            errs = set(errors(fn))
-            import pprint
-            pprint.pprint(errs)
-            f_res['errs'] = len(errs)
+            #errs = set(errors(fn))
+            #import pprint
+            #pprint.pprint(errs)
+            #f_res['errs'] = len(errs)
 
             str = (open(fn, 'r')).read()
             mod = re.search(mod_re, str, re.M).group(1)
@@ -176,7 +185,9 @@ def main():
             f_res['divs'] = len(re.findall(div_re, str))
             f_res['hints'] = len(re.findall(wit_re, str)) + len(re.findall(dec_re, str))
             results[d][mod] = f_res
+            print pptex(fn, f_res),
 
+        print "\\hline\n\\end{tabular}\n"
         os.chdir(pwd)
 
     with open('metrics.tex', 'w') as out:

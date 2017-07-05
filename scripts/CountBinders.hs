@@ -20,7 +20,7 @@ import qualified Outputable as Out
 import           Type
 import           Var
 
-import           Language.Haskell.Liquid.GhcMisc
+import           Language.Haskell.Liquid.GHC.Misc
 import           Language.Haskell.Liquid.Misc
 
 getCoreBinds :: FilePath -> IO [CoreBind]
@@ -33,7 +33,7 @@ getCoreBinds target = runGhc (Just libdir) $ do
   modGraph <- getModuleGraph
   case find ((== target) . msHsFilePath) modGraph of
     Just modSummary -> do
-      mod_guts <- coreModule <$> (desugarModule =<< typecheckModule =<< parseModule modSummary)
+      mod_guts <- coreModule <$> (GHC.desugarModule =<< typecheckModule =<< parseModule modSummary)
       return   $! mg_binds mod_guts
     Nothing     -> error "Ghc Interface: Unable to get GhcModGuts"
 
@@ -46,8 +46,7 @@ updateDynFlags df ps
        , ghcLink      = NoLink
        , hscTarget    = HscInterpreted
        , ghcMode      = CompManager
-       } `xopt_set` Opt_MagicHash
-         `dopt_set` Opt_ImplicitImportQualified
+       }
 
 
 allBinders :: [CoreBind] -> [CoreBind]
