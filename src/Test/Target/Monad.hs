@@ -297,6 +297,6 @@ freshChoice cn
 getValue :: Symbol -> Target Value
 getValue v = do
   ctx <- gets smtContext
-  Values [x] <- io $ ensureValues $ command ctx (GetValue [v])
+  [x] <- io $ getValuesText ctx [v]
   noteUsed x
   return (snd x)
